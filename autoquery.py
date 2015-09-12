@@ -3,9 +3,9 @@ import requests
 from BeautifulSoup import BeautifulSoup
 import time
 import os
-#import winsound
+import winsound
 url = "https://www.ccxp.nthu.edu.tw/ccxp/COURSE/JH/7/7.2/7.2.7/JH727002.php"
-acixstore = "nldeuc71rp1amhsoch12b422v1"
+acixstore = "your acix code, not mine"
 
 headers = {
     "Accept"          : "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -22,24 +22,19 @@ headers = {
     "User-Agent"      : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36"
 }
 
-#params = {
-#    "ACIXSTORE"  : acixstore,
-#    "select"     : "GE",
-#    "act"        : "1",
-#    "Submit"     : "%BDT%A9w+go"
-#}
+
 data = "ACIXSTORE=" + acixstore + "&select=CS&act=1&Submit=%BDT%A9w+go"
 req_url = url + "ACIXSTORE=" + acixstore
-#print len(data)
+
 while True:
 
-    print 'post request ...'
+    print 'post request...'
     response = requests.post( url, headers=headers, data=data)
     response.encoding = 'big5'
 
     soup = BeautifulSoup(response.text)
-    # cols = soup.findAll('tr', attrs={"class" : 'word'})
     cols = soup.findAll('div', attrs={"align" : "center"})
+    
     for x in cols:
         if x.renderContents() != '金仲達<br />KING, CHUNG-TA':
             continue
@@ -52,10 +47,12 @@ while True:
             print 'full'
             print limit
             print current
+            # for mac
             #os.system('say "your program has finished"')
         else:
             print 'go get it now!'
             winsound.Beep(300,2000)
+            # for mac
             #os.system('say "your program has finished"')
         break
        
